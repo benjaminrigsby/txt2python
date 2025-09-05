@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>txt2python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .card { border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.07); }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    </style>
+  </head>
+  <body class="bg-slate-50">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+      <header class="mb-8 flex items-center justify-between">
+        <h1 class="text-3xl font-semibold tracking-tight">txt2python</h1>
+        <a class="text-sm text-slate-600 hover:text-slate-900" href="https://pandas.pydata.org/" target="_blank" rel="noreferrer">Pandas docs ↗</a>
+      </header>
+      {% block content %}{% endblock %}
+      <footer class="mt-12 text-center text-xs text-slate-500">Made with FastAPI · Converts CSV → runnable Python code</footer>
+    </div>
+    <script src="/static/script.js"></script>
+  </body>
+</html>

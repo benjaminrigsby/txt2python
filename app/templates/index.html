@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid md:grid-cols-2 gap-6">
+  <div class="card bg-white p-5">
+    <form method="post" action="/convert" class="space-y-4">
+      <label class="block text-sm font-medium text-slate-700">CSV input</label>
+      <textarea name="input_text" rows="10" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-slate-600" placeholder="Name, Age, City&#10;Alice, 31, Tampa&#10;Bob, 29, Austin">{{ (input_text or sample) | e }}</textarea>
+
+      <div class="flex items-center gap-4">
+        <label class="inline-flex items-center gap-2 text-sm">
+          <input type="checkbox" name="has_header" value="true" {% if has_header %}checked{% endif %} class="rounded" />
+          First row is header
+        </label>
+        <div class="text-sm">Output:</div>
+        <label class="inline-flex items-center gap-1 text-sm"><input type="radio" name="mode" value="pandas" {% if mode == 'pandas' %}checked{% endif %}/> Pandas</label>
+        <label class="inline-flex items-center gap-1 text-sm"><input type="radio" name="mode" value="listdict" {% if mode == 'listdict' %}checked{% endif %}/> List[dict]</label>
+        <label class="inline-flex items-center gap-1 text-sm"><input type="radio" name="mode" value="dict" {% if mode == 'dict' %}checked{% endif %}/> Dict (key=col1)</label>
+      </div>
+
+      <button class="px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800">Convert</button>
+    </form>
+
+    <details class="mt-4 text-sm text-slate-600">
+      <summary class="cursor-pointer">Tips</summary>
+      <ul class="list-disc pl-5 mt-2 space-y-1">
+        <li>Whitespace is trimmed automatically</li>
+        <li>If no header row, synthetic headers <code class="mono">col_1</code>, <code class="mono">col_2</code>, … are added</li>
+        <li>Use <em>List[dict]</em> if you’ll serialize/inspect rows; use <em>Pandas</em> for analysis</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="card bg-white p-5">
+    <div class="flex items-center justify-between mb-2">
+      <h2 class="text-lg font-semibold">Runnable Python</h2>
+      <button id="copyBtn" class="px-3 py-1 rounded-lg border border-slate-300 hover:bg-slate-50">Copy</button>
+    </div>
+    <pre id="code" class="mono text-sm overflow-auto">{{ (output_code or '') | e }}</pre>
+    {% if not output_code %}
+    <p class="text-sm text-slate-500 mt-2">Submit to generate code. Example shows Pandas, List[dict], or Dict keyed by first column.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

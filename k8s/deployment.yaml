@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: txt2python
+  labels: { app: txt2python }
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: txt2python }
+  template:
+    metadata:
+      labels: { app: txt2python }
+    spec:
+      containers:
+        - name: web
+          image: txt2python:0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits: { cpu: "250m", memory: "256Mi" }
+          readinessProbe:
+            httpGet: { path: "/", port: 8000 }
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: "/", port: 8000 }
+            initialDelaySeconds: 10
+            periodSeconds: 20
