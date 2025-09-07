@@ -23,6 +23,6 @@
       {% block content %}{% endblock %}
       <footer class="mt-12 text-center text-xs text-slate-500">Made with FastAPI · Converts CSV → runnable Python code</footer>
     </div>
-    <script src="/static/script.js"></script>
+    <script src="{{ url_for('static', path='script.js') }}"></script>
   </body>
 </html>

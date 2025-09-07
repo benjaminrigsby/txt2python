@@ -2,7 +2,7 @@
 {% block content %}
 <div class="grid md:grid-cols-2 gap-6">
   <div class="card bg-white p-5">
-    <form method="post" action="/convert" class="space-y-4">
+    <form method="post" action="{{ url_for('convert') }}" class="space-y-4">
       <label class="block text-sm font-medium text-slate-700">CSV input</label>
       <textarea name="input_text" rows="10" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-slate-600" placeholder="Name, Age, City&#10;Alice, 31, Tampa&#10;Bob, 29, Austin">{{ (input_text or sample) | e }}</textarea>
 
